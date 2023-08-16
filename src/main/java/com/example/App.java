@@ -1,22 +1,29 @@
 package com.example;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class App {
     
     public static void main(String[] args){
         System.out.println();
-        System.out.println();
-        System.out.println("Minha aplicação Java\n");
+        System.out.println("Aplicação Java de Exemplo\n");
+        listarEstados();
+    }
 
-        byte idade = 27;
-
-        double peso = 93;
-        System.out.println("idade é " + idade + " Peso é " + peso);
-
-        char sexo = 'M';
-        System.out.println("Sexo: " + sexo);
-
-        var necessidadeEspeciais = 1;
-        System.out.println("Tem necessidades especiais ? : " + necessidadeEspeciais);
-
+    public static void listarEstados(){
+        System.out.println("Listando estados cadastrados no banco de dados");
+        try {
+            Class.forName("org.postgresql.Driver");
+            try(var conn = DriverManager.getConnection("jdbc:postgresql://localhost/postgres","gitpod","")){
+                var stm = conn.createStatement();
+                var result = stm.executeQuery("select * from estado");
+                while(result.next()){
+                    System.out.println(result.getString("nome"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 }

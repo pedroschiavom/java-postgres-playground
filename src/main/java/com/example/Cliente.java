@@ -24,9 +24,9 @@ public class Cliente{
     public void setNome(String nome) {
         if(nome.isBlank()){
             System.out.println("Nome é obrigatório");
-        }else {
-            this.nome = nome.trim().toUpperCase();
-        }   
+        } else {
+            this.nome = nome;
+        }  
     }
 
      
@@ -90,5 +90,9 @@ public class Cliente{
             System.out.println("A renda deve ser maior que zero");
         }
        
+    }
+
+    public String toString(){
+        return "Cliente: " + nome + " Cidade: "+ cidade;
     }
 }
