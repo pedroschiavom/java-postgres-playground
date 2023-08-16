@@ -2,6 +2,8 @@ package com.example;
 
 import java.util.*;
 
+import com.example.model.Cliente;
+
 public class AppListas {
     public static void main(String[] args) {
         List<Cliente> listaClientes = new LinkedList<>();
