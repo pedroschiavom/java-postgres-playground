@@ -1,9 +1,6 @@
 package com.example;
 
-
-import java.sql.Connection;
 import java.sql.SQLException;
-
 import com.example.dao.ConnectionManager;
 import com.example.dao.DAO;
 import com.example.model.Marca;
@@ -20,9 +17,13 @@ public class AppBd {
     public AppBd(){
         try(var conn = ConnectionManager.getConnection()){ 
         var estadoDAO = new EstadoDAO(conn);
-        estadoDAO.listar();
-        estadoDAO.localizar("SP");
-       
+        var listaEstados = estadoDAO.listar();
+        System.out.println("BOMBASTIC SIDE EYE");
+        for (var estado : listaEstados) {
+            System.out.println(estado);
+        }
+
+        //estadoDAO.localizar("SP");
         var marca = new Marca();
         marca.setId(2L);
 
@@ -34,11 +35,12 @@ public class AppBd {
 
         var produtoDAO = new ProdutoDAO(conn);
         
-        produtoDAO.alterar(produto);
-        produtoDAO.excluir(205);
+        //produtoDAO.listar();
+        //produtoDAO.alterar(produto);
+        //produtoDAO.excluir(205);
 
         var dao = new DAO(conn);
-        dao.listar("produto");
+        //dao.listar("produto");
         } catch (SQLException e) {
             System.err.println("Não foi possível conectar ao banco de dados: " + e.getMessage());
         }

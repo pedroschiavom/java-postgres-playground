@@ -5,13 +5,27 @@ import java.sql.SQLException;
 
 import com.example.model.Produto;
 
-public class ProdutoDAO {
-    private Connection conn;
+public class ProdutoDAO extends DAO {
 
     public ProdutoDAO(Connection conn) {
-        this.conn = conn;
+        super(conn);
     }
+    public void listar(){
+        try {
+            System.out.println("LISTANDO OS PRODUTOS BOM DIMAIZE");
+            var statement = conn.createStatement();
+            var result =  statement.executeQuery("select * from produto");
 
+            while(result.next()){
+            System.out.printf("Id: %d Nome: %s Marca_Id: %d Valor: %f",
+            result.getInt("id"),result.getString("nome"), result.getInt("marca_id"), result.getDouble("valor"));
+            System.out.println();
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Não foi possível executar a consulta ao banco: " + e.getMessage());
+        }
+    }
     public void excluir(long id) {
         var sql = "delete from produto where id = ? ";
         try {
